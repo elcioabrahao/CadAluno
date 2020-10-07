@@ -5,4 +5,5 @@
     <color name="colorAccent">#E1948E</color>
     <color name="fundo_vermelho">#00FF00</color>
     <color name="cinza">#CCCCCC</color>
+    <color name="branco">#FFFFFF</color>
 </resources>
