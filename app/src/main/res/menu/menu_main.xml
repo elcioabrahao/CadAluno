@@ -2,8 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-    <item
-        android:id="@+id/editar" android:icon="@drawable/ic_editar" app:showAsAction="always|withText" android:title="Editar"/>
 
     <item
         android:id="@+id/sair" android:icon="@drawable/ic_sair" app:showAsAction="always|withText" android:title="Sair"/>

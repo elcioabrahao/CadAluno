@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.perfil:
                         replaceFragment(R.id.frameLayout,
-                                PerfilFragment.newInstance("",""),
+                                PerfilFragment.newInstance(false,""),
                                 "PERFILFRAGMENT",
                                 "PERFIL");
                         return true;
@@ -84,10 +84,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.editar:
-                Intent intent = new Intent(this, CadastroActivity.class);
-                startActivity(intent);
-                return(true);
             case R.id.sair:
                 finish();
                 return(true);
