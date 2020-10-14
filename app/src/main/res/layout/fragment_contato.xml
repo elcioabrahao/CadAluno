@@ -7,15 +7,74 @@
     android:layout_height="match_parent"
     tools:context=".ui.ContatoFragment">
 
-
     <TextView
-        android:textSize="14pt"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewTituloC"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Cadastro de Contato"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
+        android:textSize="14pt"
+        android:layout_marginTop="48dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextNomeC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="156dp"
+        android:hint="Nome"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTituloC"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextEmailC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="Email"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNomeC"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextTelefoneC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="Telefone"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailC"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+
+
+    <Button
+        android:id="@+id/buttonSalvarC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SALVAR"
+        android:background="@color/colorPrimary"
+        android:textSize="12pt"
+        android:textColor="#ffffff"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="FRAGMENT CONTATO" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
