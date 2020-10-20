@@ -88,28 +88,28 @@ public class ContatoRepository {
 
     }
 
-//    public void alterarContato(Contato contato){
-//
-//        ContatoPut contatoPut = new ContatoPut(contato.getNome(),contato.getEmail(),
-//                contato.getTelefone());
-//
-//        contatoService.alterarContato(contato.getId(),contatoPut)
-//                .enqueue(new Callback<ResponseBody>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                        if (response.body() != null) {
-//                            Log.d("RESPOSTA", "tenho resultato-->"+response.body());
-//                            salvoSucessoMutableLiveData.postValue(new Boolean(true));
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                        Log.e("RESPOSTA", "FALHOU->"+t.getMessage());
-//                        salvoSucessoMutableLiveData.postValue(new Boolean(false));
-//                    }
-//                });
-//    }
+    public void alterarContato(Contato contato){
+
+        ContatoPut contatoPut = new ContatoPut(contato.getNome(),contato.getEmail(),
+                contato.getTelefone());
+
+        contatoService.alterarContato(contato.getId(),contatoPut)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.body() != null) {
+                            Log.d("RESPOSTA", "tenho resultato-->"+response.body());
+                            salvoSucessoMutableLiveData.postValue(new Boolean(true));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("RESPOSTA", "FALHOU->"+t.getMessage());
+                        salvoSucessoMutableLiveData.postValue(new Boolean(false));
+                    }
+                });
+    }
 
     public Call<ResponseBody> deletarContato(Contato contato){
         return contatoService.deletarContato(contato.getId());

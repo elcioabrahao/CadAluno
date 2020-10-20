@@ -28,7 +28,7 @@ public class ContatoFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
-    private String mParam2;
+    private Contato mParam2;
     private ContatoViewModel contatoViewModel;
     private Contato contatoCorrente;
     private EditText editTextNome;
@@ -41,11 +41,11 @@ public class ContatoFragment extends Fragment {
     }
 
 
-    public static ContatoFragment newInstance(String param1, String param2) {
+    public static ContatoFragment newInstance(String param1, Contato param2) {
         ContatoFragment fragment = new ContatoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,8 +55,10 @@ public class ContatoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam2 = (Contato) getArguments().getSerializable(ARG_PARAM2);
         }
+
+
         contatoViewModel = new ViewModelProvider(this).get(ContatoViewModel.class);
         contatoViewModel.getSalvoSucesso().observe(this, new Observer<Boolean>() {
             @Override
@@ -94,6 +96,13 @@ public class ContatoFragment extends Fragment {
         editTextTelefone = view.findViewById(R.id.editTextTelefoneC);
         salvarContato = view.findViewById(R.id.buttonSalvarC);
 
+        if(mParam2 != null){
+            contatoCorrente = mParam2;
+            editTextNome.setText(contatoCorrente.getNome());
+            editTextEmail.setText(contatoCorrente.getEmail());
+            editTextTelefone.setText(contatoCorrente.getTelefone());
+        }
+
         salvarContato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +118,12 @@ public class ContatoFragment extends Fragment {
         contatoCorrente.setEmail(editTextEmail.getText().toString());
         contatoCorrente.setTelefone(editTextTelefone.getText().toString());
 
-        contatoViewModel.salvarContato(contatoCorrente);
+        if(mParam2 != null){
+            contatoViewModel.alterarContato(contatoCorrente);
+        }else{
+            contatoViewModel.salvarContato(contatoCorrente);
+        }
+
+
     }
 }

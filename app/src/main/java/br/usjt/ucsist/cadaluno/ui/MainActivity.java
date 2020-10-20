@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.contatos:
                         replaceFragment(R.id.frameLayout,
-                                ContatoFragment.newInstance("",""),
+                                ContatoFragment.newInstance("",null),
                                 "CONTATOFRAGMENT",
                                 "CONTATO");
                         return true;

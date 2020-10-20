@@ -39,7 +39,7 @@ public class ContatoViewModel extends AndroidViewModel {
         contatoRepository.salvarContato(contato);
     }
 
-//    public void alterarContato(Contato contato){
-//        contatoRepository.alterarContato(contato);
-//    }
+    public void alterarContato(Contato contato){
+        contatoRepository.alterarContato(contato);
+    }
 }

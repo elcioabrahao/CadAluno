@@ -6,4 +6,6 @@
     <color name="fundo_vermelho">#00FF00</color>
     <color name="cinza">#CCCCCC</color>
     <color name="branco">#FFFFFF</color>
+    <color name="fundo_card">#F1DCDC</color>
+
 </resources>
