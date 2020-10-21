@@ -1,5 +1,7 @@
 package br.usjt.ucsist.cadaluno.ui;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -7,11 +9,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
@@ -21,6 +26,8 @@ import br.usjt.ucsist.cadaluno.model.Contato;
 import br.usjt.ucsist.cadaluno.model.ContatoViewModel;
 import br.usjt.ucsist.cadaluno.model.Usuario;
 import br.usjt.ucsist.cadaluno.model.UsuarioViewModel;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ContatoFragment extends Fragment {
 
@@ -35,6 +42,8 @@ public class ContatoFragment extends Fragment {
     private EditText editTextEmail;
     private EditText editTextTelefone;
     private Button salvarContato;
+    private TextView linkContato;
+    private ImageView foto;
 
     public ContatoFragment() {
         // Required empty public constructor
@@ -57,6 +66,7 @@ public class ContatoFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = (Contato) getArguments().getSerializable(ARG_PARAM2);
         }
+
 
 
         contatoViewModel = new ViewModelProvider(this).get(ContatoViewModel.class);
@@ -95,6 +105,15 @@ public class ContatoFragment extends Fragment {
         editTextEmail = view.findViewById(R.id.editTextEmailC);
         editTextTelefone = view.findViewById(R.id.editTextTelefoneC);
         salvarContato = view.findViewById(R.id.buttonSalvarC);
+        linkContato = view.findViewById(R.id.linkContato);
+        foto = view.findViewById(R.id.imagemContato);
+
+        linkContato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tirarFoto();
+            }
+        });
 
         if(mParam2 != null){
             contatoCorrente = mParam2;
@@ -109,6 +128,29 @@ public class ContatoFragment extends Fragment {
                 salvar();
             }
         });
+
+    }
+
+    private void tirarFoto(){
+        dispatchTakePictureIntent();
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            foto.setImageBitmap(imageBitmap);
+        }
 
     }
 

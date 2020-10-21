@@ -25,6 +25,27 @@ tools:context=".ui.ContatoFragment">
     app:layout_constraintTop_toTopOf="parent" />
 
 
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/imagemContato"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_place_holder"
+        app:layout_constraintTop_toBottomOf="@+id/tituloTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/linkContato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Clique aqui para alterar a foto"
+        android:textColor="@color/azul"
+        app:layout_constraintTop_toBottomOf="@+id/imagemContato"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 
 
 <EditText
@@ -32,10 +53,10 @@ tools:context=".ui.ContatoFragment">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Nome do Contato"
-    android:layout_marginTop="64dp"
+    android:layout_marginTop="16dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    app:layout_constraintTop_toBottomOf="@+id/tituloTextView"
+    app:layout_constraintTop_toBottomOf="@+id/linkContato"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"/>
 
