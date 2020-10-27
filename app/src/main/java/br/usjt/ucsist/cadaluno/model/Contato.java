@@ -19,6 +19,9 @@ public class Contato implements Serializable {
     @SerializedName("telefone")
     @Expose
     private String telefone;
+    @SerializedName("imagem")
+    @Expose
+    private String imagem;
 
     public String getId() {
         return id;
@@ -50,5 +53,13 @@ public class Contato implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

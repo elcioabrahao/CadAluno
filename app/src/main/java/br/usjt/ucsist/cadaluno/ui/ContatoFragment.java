@@ -26,6 +26,7 @@ import br.usjt.ucsist.cadaluno.model.Contato;
 import br.usjt.ucsist.cadaluno.model.ContatoViewModel;
 import br.usjt.ucsist.cadaluno.model.Usuario;
 import br.usjt.ucsist.cadaluno.model.UsuarioViewModel;
+import br.usjt.ucsist.cadaluno.util.ImageUtil;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -88,6 +89,7 @@ public class ContatoFragment extends Fragment {
         editTextTelefone.setText("");
         editTextEmail.setText("");
         editTextNome.setText("");
+        foto.setImageResource(R.drawable.ic_place_holder);
     }
 
     @Override
@@ -120,6 +122,7 @@ public class ContatoFragment extends Fragment {
             editTextNome.setText(contatoCorrente.getNome());
             editTextEmail.setText(contatoCorrente.getEmail());
             editTextTelefone.setText(contatoCorrente.getTelefone());
+            foto.setImageBitmap(ImageUtil.decode(contatoCorrente.getImagem()));
         }
 
         salvarContato.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +153,7 @@ public class ContatoFragment extends Fragment {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             foto.setImageBitmap(imageBitmap);
+            contatoCorrente.setImagem(ImageUtil.encode(imageBitmap));
         }
 
     }
