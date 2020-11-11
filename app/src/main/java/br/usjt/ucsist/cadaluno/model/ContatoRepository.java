@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ContatoRepository {
 
-    private static final String CONTATOS_SERVICE_BASE_URL = "https://crudcrud.com";
+    private static final String CONTATOS_SERVICE_BASE_URL = "http://10.0.2.2:8080";
 
     private ContatoService contatoService;
     private MutableLiveData<List<Contato>> contatosResponseMutableLiveData;
