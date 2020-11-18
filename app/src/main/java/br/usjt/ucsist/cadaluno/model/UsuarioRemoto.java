@@ -1,35 +1,51 @@
 package br.usjt.ucsist.cadaluno.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "usuario")
-public class Usuario {
+import java.io.Serializable;
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private Long idRemoto;
+public class UsuarioRemoto  implements Serializable {
+
+    @SerializedName("id")
+    @Expose
+    private Long id;
+    @SerializedName("nome")
+    @Expose
     private String nome;
+    @SerializedName("cpf")
+    @Expose
     private String cpf;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("senha")
+    @Expose
     private String senha;
 
-    public Usuario(String nome, String cpf, String email, String senha, Long idRemoto) {
+    public UsuarioRemoto(String nome, String cpf, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
-        this.idRemoto = idRemoto;
     }
-    // gets e sets
 
-    public Usuario(){}
+    public UsuarioRemoto(Long id, String nome, String cpf, String email, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
+    }
 
-    public int getId() {
+    public UsuarioRemoto() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,13 +79,5 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public Long getIdRemoto() {
-        return idRemoto;
-    }
-
-    public void setIdRemoto(Long idRemoto) {
-        this.idRemoto = idRemoto;
     }
 }

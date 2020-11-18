@@ -18,6 +18,7 @@ import com.orhanobut.hawk.Hawk;
 
 import br.usjt.ucsist.cadaluno.R;
 import br.usjt.ucsist.cadaluno.model.Usuario;
+import br.usjt.ucsist.cadaluno.model.UsuarioRemoto;
 import br.usjt.ucsist.cadaluno.model.UsuarioViewModel;
 
 
@@ -95,6 +96,29 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        usuarioViewModel.getSalvoSucesso().observe(getActivity(), new Observer<UsuarioRemoto>() {
+            @Override
+            public void onChanged(@Nullable final UsuarioRemoto usuarioRemoto) {
+//                String mensagem = "Usuario Remoto falhou ao salvar!";
+                if(usuarioRemoto!=null){
+//                    mensagem = "Usuario Remoto salvo com sucesso!";
+
+                    usuarioCorrente.setIdRemoto(usuarioRemoto.getId());
+
+                    usuarioViewModel.insert(usuarioCorrente);
+
+                    Hawk.put("tem_cadastro", true);
+                    Toast.makeText(getActivity(),"Registro salvo com sucesso!",
+                            Toast.LENGTH_SHORT).show();
+                    if(mParam1){
+                        getActivity().finish();
+                    }
+                }
+//                Toast.makeText(getActivity(),mensagem,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
     }
 
     private void updateView(Usuario usuario){
@@ -114,14 +138,23 @@ public class PerfilFragment extends Fragment {
         usuarioCorrente.setEmail(editTextEmail.getText().toString());
         usuarioCorrente.setSenha(editTextSenha.getText().toString());
 
-        usuarioViewModel.insert(usuarioCorrente);
-
-        Hawk.put("tem_cadastro", true);
-        Toast.makeText(getActivity(),"Registro salvo com sucesso!",
-                Toast.LENGTH_SHORT).show();
         if(mParam1){
-            getActivity().finish();
+            // Novo cadastro
+            usuarioViewModel.salvarUsuarioRemoto(new UsuarioRemoto(
+                    usuarioCorrente.getNome(),
+                    usuarioCorrente.getCpf(),
+                    usuarioCorrente.getEmail(),
+                    usuarioCorrente.getSenha()));
+        }else{
+            usuarioViewModel.alterarUsuarioRemoto(new UsuarioRemoto(
+                    usuarioCorrente.getIdRemoto(),
+                    usuarioCorrente.getNome(),
+                    usuarioCorrente.getCpf(),
+                    usuarioCorrente.getEmail(),
+                    usuarioCorrente.getSenha()));
         }
+
+
     }
 
 }
