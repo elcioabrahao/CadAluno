@@ -17,6 +17,7 @@ import com.orhanobut.hawk.Hawk;
 
 import br.usjt.ucsist.cadaluno.R;
 import br.usjt.ucsist.cadaluno.model.Usuario;
+import br.usjt.ucsist.cadaluno.model.UsuarioRemoto;
 import br.usjt.ucsist.cadaluno.model.UsuarioViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -51,6 +52,33 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+        usuarioViewModel.getAutenticadoSucesso().observe(this, new Observer<UsuarioRemoto>() {
+            @Override
+            public void onChanged(@Nullable final UsuarioRemoto usuarioRemoto) {
+
+                if(usuarioRemoto!=null){
+
+                    usuarioCorrente = new Usuario();
+                    usuarioCorrente.setIdRemoto(usuarioRemoto.getId());
+
+                    Hawk.put("idRemoto",usuarioRemoto.getId());
+                    usuarioViewModel.insert(usuarioCorrente);
+                    Hawk.put("tem_cadastro", true);
+                    Toast.makeText(LoginActivity.this,"Autenticado remoto com sucesso!",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    editTextSenha.setText("");
+                }else{
+                    Toast.makeText(LoginActivity.this,"Usuário ou senha incorretos",Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
+
+
+
     }
 
     private void updateUsuario(Usuario usuario){
@@ -73,14 +101,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void bloquear(){
-        buttonLogin.setEnabled(false);
-        buttonLogin.setBackgroundColor(getResources().getColor(R.color.cinza));
         textViewNovoCadastro.setVisibility(View.VISIBLE);
     }
 
     private void desbloquear(){
-        buttonLogin.setEnabled(true);
-        buttonLogin.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         textViewNovoCadastro.setVisibility(View.GONE);
     }
 
@@ -91,9 +115,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View view) {
 
+        String usuario = editTextEmail.getText().toString();
+        String senha = editTextSenha.getText().toString();
+
         if(usuarioCorrente != null){
-            String usuario = editTextEmail.getText().toString();
-            String senha = editTextSenha.getText().toString();
             if(usuario.equalsIgnoreCase(usuarioCorrente.getEmail())
             && senha.equals(usuarioCorrente.getSenha())){
                 Intent intent = new Intent(this, MainActivity.class);
@@ -103,7 +128,11 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this,"Usuário ou Senha Inválidos!",
                         Toast.LENGTH_SHORT).show();
             }
-
+        }else{
+            UsuarioRemoto ur = new UsuarioRemoto();
+            ur.setEmail(usuario);
+            ur.setSenha(senha);
+            usuarioViewModel.autenticarUsuarioRemoto(ur);
         }
     }
 }

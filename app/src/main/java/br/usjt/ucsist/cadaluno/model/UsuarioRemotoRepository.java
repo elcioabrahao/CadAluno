@@ -22,10 +22,12 @@ public class UsuarioRemotoRepository {
     private UsuarioRemotoService usuarioRemotoService;
     private MutableLiveData<List<UsuarioRemoto>> usuarioRemotosResponseMutableLiveData;
     private MutableLiveData<UsuarioRemoto> salvoSucessoMutableLiveData;
+    private MutableLiveData<UsuarioRemoto> autenticadoSucessoMutableLiveData;
 
     public UsuarioRemotoRepository() {
         usuarioRemotosResponseMutableLiveData = new MutableLiveData<>();
         salvoSucessoMutableLiveData = new MutableLiveData<>();
+        autenticadoSucessoMutableLiveData = new MutableLiveData<>();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
@@ -67,6 +69,10 @@ public class UsuarioRemotoRepository {
         return salvoSucessoMutableLiveData;
     }
 
+    public LiveData<UsuarioRemoto> getAutenticadoSucesso() {
+        return autenticadoSucessoMutableLiveData;
+    }
+
     public void salvarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
 
         usuarioRemotoService.salvarUsuarioRemoto(usuarioRemoto)
@@ -83,6 +89,27 @@ public class UsuarioRemotoRepository {
                     public void onFailure(Call<UsuarioRemoto> call, Throwable t) {
                         Log.e("RESPOSTA", "FALHOU->"+t.getMessage());
                         salvoSucessoMutableLiveData.postValue(null);
+                    }
+                });
+
+    }
+
+    public void autenticarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
+
+        usuarioRemotoService.autenticarUsuarioRemoto(usuarioRemoto)
+                .enqueue(new Callback<UsuarioRemoto>() {
+                    @Override
+                    public void onResponse(Call<UsuarioRemoto> call, Response<UsuarioRemoto> response) {
+                        if (response.body() != null) {
+                            Log.d("RESPOSTA", "tenho resultato-->"+response.body());
+                            autenticadoSucessoMutableLiveData.postValue(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UsuarioRemoto> call, Throwable t) {
+                        Log.e("RESPOSTA", "FALHOU->"+t.getMessage());
+                        autenticadoSucessoMutableLiveData.postValue(null);
                     }
                 });
 

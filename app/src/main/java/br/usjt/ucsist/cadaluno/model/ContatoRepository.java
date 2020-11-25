@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.orhanobut.hawk.Hawk;
+
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -41,7 +43,7 @@ public class ContatoRepository {
     }
 
     public void getContatos() {
-        contatoService.getAllContatos()
+        contatoService.getAllContatosByRemoteId(Hawk.get("idRemoto",0L))
                 .enqueue(new Callback<List<Contato>>() {
                     @Override
                     public void onResponse(Call<List<Contato>> call, Response<List<Contato>> response) {

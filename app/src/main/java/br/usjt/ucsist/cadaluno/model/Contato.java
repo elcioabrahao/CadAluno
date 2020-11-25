@@ -22,6 +22,9 @@ public class Contato implements Serializable {
     @SerializedName("imagem")
     @Expose
     private String imagem;
+    @SerializedName("remoto")
+    @Expose
+    private Long remoto;
 
     public long getId() {
         return id;
@@ -61,5 +64,13 @@ public class Contato implements Serializable {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public Long getRemoto() {
+        return remoto;
+    }
+
+    public void setRemoto(Long remoto) {
+        this.remoto = remoto;
     }
 }

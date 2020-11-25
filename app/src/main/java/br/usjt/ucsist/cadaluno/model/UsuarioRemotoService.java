@@ -21,6 +21,11 @@ public interface UsuarioRemotoService {
             @Body
                     UsuarioRemoto usuarioRemoto);
 
+    @POST("/api/usuario/autenticar")
+    Call<UsuarioRemoto> autenticarUsuarioRemoto(
+            @Body
+                    UsuarioRemoto usuarioRemoto);
+
     @PUT("/api/usuario/{id}")
     Call<UsuarioRemoto> alterarUsuarioRemoto(
             @Path("id") Long id,

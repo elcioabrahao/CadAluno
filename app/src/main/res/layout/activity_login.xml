@@ -52,10 +52,11 @@
         android:id="@+id/textViewNovoCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="32dp"
         android:onClick="novoCadastro"
         android:textColor="@color/colorPrimary"
-        android:text="Novo Cadastro Clique Aqui"
-        android:layout_marginTop="24dp"
+        android:gravity="center_horizontal"
+        android:text="Clique aqui para novo cadastro ou use seu usuário e senha se já tiver um cadastro"
         app:layout_constraintTop_toBottomOf="@+id/editTextSenha"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>

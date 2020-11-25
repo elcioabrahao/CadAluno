@@ -163,6 +163,7 @@ public class ContatoFragment extends Fragment {
         contatoCorrente.setNome(editTextNome.getText().toString());
         contatoCorrente.setEmail(editTextEmail.getText().toString());
         contatoCorrente.setTelefone(editTextTelefone.getText().toString());
+        contatoCorrente.setRemoto(Hawk.get("idRemoto",0L));
 
         if(mParam2 != null){
             contatoViewModel.alterarContato(contatoCorrente);

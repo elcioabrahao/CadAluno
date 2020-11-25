@@ -13,8 +13,10 @@ import retrofit2.http.Path;
 
 public interface ContatoService {
 
-    @GET("/api/contatos")
-    Call<List<Contato>> getAllContatos();
+    @GET("/api/contatos/{id}")
+    Call<List<Contato>> getAllContatosByRemoteId(
+            @Path("id") Long idRemoto
+    );
 
     @POST("/api/contato")
     Call<ResponseBody> salvarContato(

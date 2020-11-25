@@ -105,6 +105,8 @@ public class PerfilFragment extends Fragment {
 
                     usuarioCorrente.setIdRemoto(usuarioRemoto.getId());
 
+                    Hawk.put("idRemoto",usuarioRemoto.getId());
+
                     usuarioViewModel.insert(usuarioCorrente);
 
                     Hawk.put("tem_cadastro", true);
