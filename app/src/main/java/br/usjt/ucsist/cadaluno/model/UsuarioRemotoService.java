@@ -16,7 +16,7 @@ public interface UsuarioRemotoService {
     @GET("/api/usuarios")
     Call<List<UsuarioRemoto>> getAllUsuariosRemotos();
 
-    @POST("/api/usuario")
+    @POST("/api/usuario/novo")
     Call<UsuarioRemoto> salvarUsuarioRemoto(
             @Body
                     UsuarioRemoto usuarioRemoto);
@@ -34,4 +34,9 @@ public interface UsuarioRemotoService {
     @DELETE("/api/usuario/{id}")
     Call<ResponseBody> deletarUsuarioRemoto(
             @Path("id") Long id);
+
+    @POST("/login")
+    Call<ResponseBody> logar(
+            @Body
+                    UsuarioRemoto usuarioRemoto);
 }

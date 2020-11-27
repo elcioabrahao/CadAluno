@@ -23,11 +23,13 @@ public class UsuarioRemotoRepository {
     private MutableLiveData<List<UsuarioRemoto>> usuarioRemotosResponseMutableLiveData;
     private MutableLiveData<UsuarioRemoto> salvoSucessoMutableLiveData;
     private MutableLiveData<UsuarioRemoto> autenticadoSucessoMutableLiveData;
+    private MutableLiveData<String> tokenMutableLiveData;
 
     public UsuarioRemotoRepository() {
         usuarioRemotosResponseMutableLiveData = new MutableLiveData<>();
         salvoSucessoMutableLiveData = new MutableLiveData<>();
         autenticadoSucessoMutableLiveData = new MutableLiveData<>();
+        tokenMutableLiveData = new MutableLiveData<>();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
@@ -71,6 +73,10 @@ public class UsuarioRemotoRepository {
 
     public LiveData<UsuarioRemoto> getAutenticadoSucesso() {
         return autenticadoSucessoMutableLiveData;
+    }
+
+    public LiveData<String> getToken() {
+        return tokenMutableLiveData;
     }
 
     public void salvarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
@@ -137,6 +143,25 @@ public class UsuarioRemotoRepository {
 
     public Call<ResponseBody> deletarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
         return usuarioRemotoService.deletarUsuarioRemoto(usuarioRemoto.getId());
+    }
+
+    public void logar(UsuarioRemoto usuarioRemoto){
+
+        usuarioRemotoService.logar(usuarioRemoto)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.body() != null) {
+                            tokenMutableLiveData.postValue(response.headers().get("Authorization"));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        tokenMutableLiveData.postValue(null);
+                    }
+                });
+
     }
 
 

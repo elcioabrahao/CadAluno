@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private Usuario usuarioCorrente;
     private EditText editTextEmail;
     private EditText editTextSenha;
+    private UsuarioRemoto ur;
 
 
     @Override
@@ -48,6 +49,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final Usuario usuario) {
                 updateUsuario(usuario);
+            }
+        });
+
+
+        usuarioViewModel.getToken().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable final String token) {
+
+                if(token!=null){
+
+                    Hawk.put("token",token);
+                    usuarioViewModel.autenticarUsuarioRemoto(ur);
+
+                }else{
+                    Toast.makeText(LoginActivity.this,"Usuário ou senha incorretos",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -129,10 +148,17 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         }else{
-            UsuarioRemoto ur = new UsuarioRemoto();
+
+
+
+            ur = new UsuarioRemoto();
             ur.setEmail(usuario);
             ur.setSenha(senha);
-            usuarioViewModel.autenticarUsuarioRemoto(ur);
+            usuarioViewModel.logar(ur);
+
+
+
+            //usuarioViewModel.autenticarUsuarioRemoto(ur);
         }
     }
 }

@@ -14,6 +14,7 @@ public class UsuarioViewModel extends AndroidViewModel {
     private LiveData<List<UsuarioRemoto>> usuarioRemotosResponseLiveData;
     private LiveData<UsuarioRemoto> salvoComSucessoLiveData;
     private LiveData<UsuarioRemoto> autenticadoComSucessoLiveData;
+    private LiveData<String> tokenGeradoComSucessoLiveData;
 
     public LiveData<Usuario> usuario;
 
@@ -25,6 +26,8 @@ public class UsuarioViewModel extends AndroidViewModel {
         usuarioRemotosResponseLiveData = usuarioRemotoRepository.getAllUsuarioRemotos();
         salvoComSucessoLiveData = usuarioRemotoRepository.getSalvoSucesso();
         autenticadoComSucessoLiveData = usuarioRemotoRepository.getAutenticadoSucesso();
+        tokenGeradoComSucessoLiveData = usuarioRemotoRepository.getToken();
+
     }
 
     public LiveData<Usuario> getUsuario() { return usuario; }
@@ -47,6 +50,10 @@ public class UsuarioViewModel extends AndroidViewModel {
         return autenticadoComSucessoLiveData;
     }
 
+    public LiveData<String> getToken() {
+        return tokenGeradoComSucessoLiveData;
+    }
+
     public void salvarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
         usuarioRemotoRepository.salvarUsuarioRemoto(usuarioRemoto);
     }
@@ -57,6 +64,10 @@ public class UsuarioViewModel extends AndroidViewModel {
 
     public void alterarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
         usuarioRemotoRepository.alterarUsuarioRemoto(usuarioRemoto);
+    }
+
+    public void logar(UsuarioRemoto usuarioRemoto){
+        usuarioRemotoRepository.logar(usuarioRemoto);
     }
 
 }
