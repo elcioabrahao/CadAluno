@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.util.HashMap;
+
 import br.usjt.ucsist.cadaluno.R;
 import br.usjt.ucsist.cadaluno.model.Usuario;
 import br.usjt.ucsist.cadaluno.model.UsuarioRemoto;
@@ -148,7 +150,9 @@ public class PerfilFragment extends Fragment {
                     usuarioCorrente.getEmail(),
                     usuarioCorrente.getSenha()));
         }else{
-            usuarioViewModel.alterarUsuarioRemoto(new UsuarioRemoto(
+            HashMap<String,String> headers = new HashMap<>();
+            headers.put("Authorization",Hawk.get("token"));
+            usuarioViewModel.alterarUsuarioRemoto(headers,new UsuarioRemoto(
                     usuarioCorrente.getIdRemoto(),
                     usuarioCorrente.getNome(),
                     usuarioCorrente.getCpf(),

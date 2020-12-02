@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.orhanobut.hawk.Hawk;
+
+import java.util.HashMap;
 import java.util.List;
 
 import br.usjt.ucsist.cadaluno.R;
@@ -100,7 +103,9 @@ public class HomeFragment extends Fragment {
     public void onResume(){
         super.onResume();
         progressBar.setVisibility(View.VISIBLE);
-        contatoViewModel.getContatos();
+        HashMap<String,String> headers = new HashMap<>();
+        headers.put("Authorization", Hawk.get("token"));
+        contatoViewModel.getContatos(headers);
     }
 
     protected void replaceFragment(@IdRes int containerViewId,

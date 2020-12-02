@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.util.HashMap;
+
 import br.usjt.ucsist.cadaluno.R;
 import br.usjt.ucsist.cadaluno.model.Contato;
 import br.usjt.ucsist.cadaluno.model.ContatoViewModel;
@@ -165,10 +167,12 @@ public class ContatoFragment extends Fragment {
         contatoCorrente.setTelefone(editTextTelefone.getText().toString());
         contatoCorrente.setRemoto(Hawk.get("idRemoto",0L));
 
+        HashMap<String,String> headers = new HashMap<>();
+        headers.put("Authorization",Hawk.get("token"));
         if(mParam2 != null){
-            contatoViewModel.alterarContato(contatoCorrente);
+            contatoViewModel.alterarContato(headers,contatoCorrente);
         }else{
-            contatoViewModel.salvarContato(contatoCorrente);
+            contatoViewModel.salvarContato(headers,contatoCorrente);
         }
 
 

@@ -5,7 +5,11 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.orhanobut.hawk.Hawk;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UsuarioViewModel extends AndroidViewModel {
 
@@ -34,8 +38,8 @@ public class UsuarioViewModel extends AndroidViewModel {
 
     public void insert(Usuario usuario) { usuarioRepository.insert(usuario); }
 
-    public void getUsuarioRemotos() {
-        usuarioRemotoRepository.getUsuarioRemotos();
+    public void getUsuarioRemotos(HashMap<String,String> headers) {
+        usuarioRemotoRepository.getUsuarioRemotos(headers);
     }
 
     public LiveData<List<UsuarioRemoto>> getUsuarioRemotosResponseLiveData() {
@@ -58,12 +62,12 @@ public class UsuarioViewModel extends AndroidViewModel {
         usuarioRemotoRepository.salvarUsuarioRemoto(usuarioRemoto);
     }
 
-    public void autenticarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
-        usuarioRemotoRepository.autenticarUsuarioRemoto(usuarioRemoto);
+    public void autenticarUsuarioRemoto(HashMap<String,String> headers, UsuarioRemoto usuarioRemoto){
+        usuarioRemotoRepository.autenticarUsuarioRemoto(headers,usuarioRemoto);
     }
 
-    public void alterarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
-        usuarioRemotoRepository.alterarUsuarioRemoto(usuarioRemoto);
+    public void alterarUsuarioRemoto(HashMap<String,String> headers, UsuarioRemoto usuarioRemoto){
+        usuarioRemotoRepository.alterarUsuarioRemoto(headers,usuarioRemoto);
     }
 
     public void logar(UsuarioRemoto usuarioRemoto){

@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -44,8 +45,8 @@ public class UsuarioRemotoRepository {
 
     }
 
-    public void getUsuarioRemotos() {
-        usuarioRemotoService.getAllUsuariosRemotos()
+    public void getUsuarioRemotos(HashMap<String,String> headers) {
+        usuarioRemotoService.getAllUsuariosRemotos(headers)
                 .enqueue(new Callback<List<UsuarioRemoto>>() {
                     @Override
                     public void onResponse(Call<List<UsuarioRemoto>> call, Response<List<UsuarioRemoto>> response) {
@@ -100,9 +101,9 @@ public class UsuarioRemotoRepository {
 
     }
 
-    public void autenticarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
+    public void autenticarUsuarioRemoto(HashMap<String,String> headers, UsuarioRemoto usuarioRemoto){
 
-        usuarioRemotoService.autenticarUsuarioRemoto(usuarioRemoto)
+        usuarioRemotoService.autenticarUsuarioRemoto(headers, usuarioRemoto)
                 .enqueue(new Callback<UsuarioRemoto>() {
                     @Override
                     public void onResponse(Call<UsuarioRemoto> call, Response<UsuarioRemoto> response) {
@@ -121,9 +122,9 @@ public class UsuarioRemotoRepository {
 
     }
 
-    public void alterarUsuarioRemoto(UsuarioRemoto usuarioRemoto){
+    public void alterarUsuarioRemoto(HashMap<String,String> headers,UsuarioRemoto usuarioRemoto){
 
-        usuarioRemotoService.alterarUsuarioRemoto(usuarioRemoto.getId(),usuarioRemoto)
+        usuarioRemotoService.alterarUsuarioRemoto(headers,usuarioRemoto.getId(),usuarioRemoto)
                 .enqueue(new Callback<UsuarioRemoto>() {
                     @Override
                     public void onResponse(Call<UsuarioRemoto> call, Response<UsuarioRemoto> response) {

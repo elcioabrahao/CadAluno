@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import br.usjt.ucsist.cadaluno.R;
 import br.usjt.ucsist.cadaluno.model.Usuario;
 import br.usjt.ucsist.cadaluno.model.UsuarioRemoto;
@@ -60,7 +63,9 @@ public class LoginActivity extends AppCompatActivity {
                 if(token!=null){
 
                     Hawk.put("token",token);
-                    usuarioViewModel.autenticarUsuarioRemoto(ur);
+                    HashMap<String,String> headers = new HashMap<>();
+                    headers.put("Authorization",Hawk.get("token"));
+                    usuarioViewModel.autenticarUsuarioRemoto(headers, ur);
 
                 }else{
                     Toast.makeText(LoginActivity.this,"Usuário ou senha incorretos",Toast.LENGTH_SHORT).show();
@@ -137,17 +142,17 @@ public class LoginActivity extends AppCompatActivity {
         String usuario = editTextEmail.getText().toString();
         String senha = editTextSenha.getText().toString();
 
-        if(usuarioCorrente != null){
-            if(usuario.equalsIgnoreCase(usuarioCorrente.getEmail())
-            && senha.equals(usuarioCorrente.getSenha())){
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                editTextSenha.setText("");
-            }else {
-                Toast.makeText(this,"Usuário ou Senha Inválidos!",
-                        Toast.LENGTH_SHORT).show();
-            }
-        }else{
+//        if(usuarioCorrente != null){
+//            if(usuario.equalsIgnoreCase(usuarioCorrente.getEmail())
+//            && senha.equals(usuarioCorrente.getSenha())){
+//                Intent intent = new Intent(this, MainActivity.class);
+//                startActivity(intent);
+//                editTextSenha.setText("");
+//            }else {
+//                Toast.makeText(this,"Usuário ou Senha Inválidos!",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        }else{
 
 
 
@@ -159,6 +164,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
             //usuarioViewModel.autenticarUsuarioRemoto(ur);
-        }
+        //}
     }
 }

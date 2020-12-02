@@ -19,12 +19,16 @@ public class ContatoPut implements Serializable {
     @SerializedName("imagem")
     @Expose
     private String imagem;
+    @SerializedName("remoto")
+    @Expose
+    private Long remoto;
 
-    public ContatoPut(String nome, String email, String telefone, String imagem) {
+    public ContatoPut(String nome, String email, String telefone, String imagem, Long remoto) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.imagem = imagem;
+        this.remoto = remoto;
     }
 
     public String getNome() {
@@ -57,6 +61,14 @@ public class ContatoPut implements Serializable {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public Long getRemoto() {
+        return remoto;
+    }
+
+    public void setRemoto(Long remoto) {
+        this.remoto = remoto;
     }
 }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -42,8 +43,8 @@ public class ContatoRepository {
 
     }
 
-    public void getContatos() {
-        contatoService.getAllContatosByRemoteId(Hawk.get("idRemoto",0L))
+    public void getContatos(HashMap<String,String> headers) {
+        contatoService.getAllContatosByRemoteId(headers,Hawk.get("idRemoto",0L))
                 .enqueue(new Callback<List<Contato>>() {
                     @Override
                     public void onResponse(Call<List<Contato>> call, Response<List<Contato>> response) {
@@ -69,9 +70,9 @@ public class ContatoRepository {
         return salvoSucessoMutableLiveData;
     }
 
-    public void salvarContato(Contato contato){
+    public void salvarContato(HashMap<String,String> headers,Contato contato){
 
-        contatoService.salvarContato(contato)
+        contatoService.salvarContato(headers,contato)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -90,12 +91,12 @@ public class ContatoRepository {
 
     }
 
-    public void alterarContato(Contato contato){
+    public void alterarContato(HashMap<String,String> headers, Contato contato){
 
         ContatoPut contatoPut = new ContatoPut(contato.getNome(),contato.getEmail(),
-                contato.getTelefone(), contato.getImagem());
+                contato.getTelefone(), contato.getImagem(), contato.getRemoto());
 
-        contatoService.alterarContato(contato.getId(),contatoPut)
+        contatoService.alterarContato(headers,contato.getId(),contatoPut)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

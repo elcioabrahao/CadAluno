@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ContatoViewModel extends AndroidViewModel {
@@ -23,8 +24,8 @@ public class ContatoViewModel extends AndroidViewModel {
         salvoComSucessoLiveData = contatoRepository.getSalvoSucesso();
     }
 
-    public void getContatos() {
-        contatoRepository.getContatos();
+    public void getContatos(HashMap<String,String> headers) {
+        contatoRepository.getContatos(headers);
     }
 
     public LiveData<List<Contato>> getContatosResponseLiveData() {
@@ -35,11 +36,11 @@ public class ContatoViewModel extends AndroidViewModel {
         return salvoComSucessoLiveData;
     }
 
-    public void salvarContato(Contato contato){
-        contatoRepository.salvarContato(contato);
+    public void salvarContato(HashMap<String,String> headers,Contato contato){
+        contatoRepository.salvarContato(headers,contato);
     }
 
-    public void alterarContato(Contato contato){
-        contatoRepository.alterarContato(contato);
+    public void alterarContato(HashMap<String,String> headers,Contato contato){
+        contatoRepository.alterarContato(headers,contato);
     }
 }
