@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UsuarioRemotoRepository {
 
-    private static final String USUARIO_SERVICE_BASE_URL = "http://10.0.2.2:8080";
+    private static final String USUARIO_SERVICE_BASE_URL = "https://meuscontatosusjt.herokuapp.com";
 
     private UsuarioRemotoService usuarioRemotoService;
     private MutableLiveData<List<UsuarioRemoto>> usuarioRemotosResponseMutableLiveData;
